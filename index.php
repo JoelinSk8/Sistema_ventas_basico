@@ -1,3 +1,14 @@
+<?php
+require_once "clases/Conexion.php";
+$obj = new conectar();
+$conexion = $obj->conexion();
+$sql = "SELECT * from usuarios where email='admin'";
+$result = mysqli_query($conexion, $sql);
+$validar = 0;
+if (mysqli_num_rows($result) > 0) {
+    $validar = 1;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +40,9 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control input-sm" name="password" id="password">
                             <br><span class="btn btn-primary btn-sm" id="entrarSistema">Entrar</span>
-                            <a href="registro.php" class="btn btn-danger btn-sm">Registrar</a>
+                            <?php if (!$validar) : ?>
+                                <a href="registro.php" class="btn btn-danger btn-sm">Registrar</a>
+                            <?php endif; ?>
                         </form>
                     </div>
                 </div>
